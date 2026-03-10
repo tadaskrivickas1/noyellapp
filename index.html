@@ -28,7 +28,8 @@
   --gray-900: #212529;
   --white: #FFFFFF;
   --radius: 12px;
-  --max: 540px;
+  /* Global content width: narrow & centered on desktop, responsive on mobile */
+  --max: clamp(360px, 50vw, 560px);
 }
 
 body {
