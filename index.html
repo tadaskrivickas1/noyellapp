@@ -29,7 +29,7 @@
   --white: #FFFFFF;
   --radius: 12px;
   /* Global content width: narrow & centered on desktop, responsive on mobile */
-  --max: clamp(360px, 50vw, 560px);
+  --max: clamp(320px, 50vw, 920px);
 }
 
 body {
@@ -53,6 +53,10 @@ body {
   top: 0; left: 0; right: 0;
   z-index: 200;
 }
+.rating-banner .rating-inner{
+  max-width: var(--max);
+  margin: 0 auto;
+}
 .rating-banner .stars { color: #FFD700; margin-right: 4px; letter-spacing: 1px; }
 
 /* ── Header ── */
@@ -63,6 +67,10 @@ body {
   background: var(--white);
   border-bottom: 1px solid var(--gray-200);
   padding: 14px 24px;
+}
+.site-header .header-inner{
+  max-width: var(--max);
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,12 +101,14 @@ body {
   padding: 0 24px 0;
   display: none;
 }
+.progress-wrap .progress-inner{
+  max-width: var(--max);
+  margin: 0 auto;
+}
 .progress-track {
   height: 4px;
   background: var(--gray-200);
   border-radius: 4px;
-  max-width: var(--max);
-  margin: 0 auto;
   overflow: hidden;
 }
 .progress-fill {
@@ -111,8 +121,8 @@ body {
 /* ── Back button ── */
 .back-btn {
   position: fixed;
-  top: 105px; left: 50%;
-  transform: translateX(calc(-1 * var(--max)/2 - 0px));
+  top: 105px;
+  left: max(16px, calc(50% - (var(--max) / 2)));
   z-index: 98;
   background: none; border: none;
   cursor: pointer;
@@ -133,17 +143,51 @@ body {
   margin: 0 auto;
   padding: 130px 24px 80px;
   min-height: 100vh;
+  position: relative;
 }
 
 /* ── Screen transitions ── */
 .screen { display: none; }
 .screen.active {
   display: block;
-  animation: slideUp 0.3s ease;
+  animation: screenIn 460ms cubic-bezier(.2,.9,.2,1);
 }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
+.screen.leaving{
+  display:block;
+  position:absolute;
+  inset: 0;
+  animation: screenOut 240ms ease forwards;
+  pointer-events:none;
+}
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(18px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes screenOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Staggered onboarding-style reveals */
+.stagger-item{
+  opacity: 0;
+  transform: translateY(10px);
+}
+.screen.active .stagger-item{
+  animation: itemIn 520ms cubic-bezier(.2,.9,.2,1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes itemIn{
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle micro-interactions */
+.opt-row, .opt-card, .yn-btn, .plan-card, .btn-continue, .btn-pay{
+  will-change: transform;
+}
+.opt-row:active, .opt-card:active, .yn-btn:active, .plan-card:active{
+  transform: scale(0.99);
 }
 
 /* ═══════════════════════════════════════
@@ -1285,21 +1329,27 @@ input[type=range]::-webkit-slider-thumb {
 
 <!-- ── Rating Banner ── -->
 <div class="rating-banner">
-  <span class="stars">★★★★★</span> 4.8/5 &nbsp;·&nbsp; Trusted by 150K+ parents
+  <div class="rating-inner">
+    <span class="stars">★★★★★</span> 4.8/5 &nbsp;·&nbsp; Trusted by 150K+ parents
+  </div>
 </div>
 
 <!-- ── Header ── -->
 <header class="site-header">
-  <div class="logo">
-    <div class="logo-icon">🕊️</div>
-    NoYell
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🕊️</div>
+      NoYell
+    </div>
   </div>
 </header>
 
 <!-- ── Progress + back ── -->
 <div class="progress-wrap" id="progressWrap">
-  <div class="progress-track">
-    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  <div class="progress-inner">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
   </div>
 </div>
 <button class="back-btn" id="backBtn" onclick="goBack()">
@@ -2023,8 +2073,19 @@ const QUIZ_SCREENS = [
 const QUIZ_TOTAL = 13; // actual question count for progress
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const next = document.getElementById(id);
+  const prev = document.querySelector('.screen.active');
+  if (prev && prev !== next) {
+    prev.classList.remove('active');
+    prev.classList.add('leaving');
+    setTimeout(() => prev.classList.remove('leaving'), 260);
+  }
+
+  document.querySelectorAll('.screen.leaving').forEach(s => {
+    if (s !== prev) s.classList.remove('leaving');
+  });
+
+  next.classList.add('active');
   screenHistory.push(id);
 
   // Progress bar
@@ -2049,11 +2110,60 @@ function showScreen(id) {
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // Onboarding-style staggered reveals
+  runStagger(next);
+
   // Trigger animations
   if (id === 'screen-summary') animateSummary();
   if (id === 'screen-results') animateResults();
   if (id === 'screen-builder') runBuilder();
   if (id === 'screen-sales') startCountdown();
+}
+
+function runStagger(screenEl) {
+  if (!screenEl) return;
+  const selectors = [
+    '.hero-eyebrow','.hero-title','.hero-tagline','.hero-label',
+    '.gender-card','.why-accordion','.trust-icon','.login-link',
+    '.q-number','.q-title','.q-subtitle','.multi-hint',
+    '.opt-row','.opt-card','.yn-btn','.why-note-inline',
+    '.insight-icon-wrap','.insight-title','.insight-body','.check-list li',
+    '.social-stats','.social-proof-card',
+    '.pulse-btn',
+    '.results-screen > *',
+    '#summaryRows .summary-row',
+    '.plan-builder-title','.build-card','.builder-review','#builderBtn',
+    '.sticky-sale-bar','.comp-wrap','.sales-stat-block','.testimonials-section','#orderSection > *',
+    '.checkout-steps','.checkout-back','.order-box','.checkout-note','.card-form-box',
+    '.success-screen > *',
+    '.btn-continue','.btn-pay'
+  ];
+
+  // Clean up from previous runs
+  screenEl.querySelectorAll('.stagger-item').forEach(el => {
+    el.classList.remove('stagger-item');
+    el.style.removeProperty('--d');
+  });
+
+  const items = [];
+  selectors.forEach(sel => {
+    screenEl.querySelectorAll(sel).forEach(el => items.push(el));
+  });
+
+  // De-dupe while preserving order
+  const seen = new Set();
+  const unique = items.filter(el => {
+    if (seen.has(el)) return false;
+    seen.add(el);
+    return true;
+  });
+
+  unique.forEach((el, idx) => {
+    // Skip elements inside inactive screens (safety)
+    if (!screenEl.contains(el)) return;
+    el.classList.add('stagger-item');
+    el.style.setProperty('--d', `${Math.min(idx * 45, 520)}ms`);
+  });
 }
 
 function goBack() {
