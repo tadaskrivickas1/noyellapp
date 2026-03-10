@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --blue: #3B5BDB;
+  --blue-dark: #2F4AC7;
+  --blue-light: #EEF2FF;
+  --green: #2F9E44;
+  --green-light: #EBFBEE;
+  --red: #E03131;
+  --gray-50: #F8F9FA;
+  --gray-100: #F1F3F5;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --gray-600: #868E96;
+  --gray-700: #495057;
+  --gray-800: #343A40;
+  --gray-900: #212529;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --max: clamp(320px, 50vw, 560px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  background: var(--gray-50);
+  color: var(--gray-900);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Screen transitions ── */
+.screen-enter {
+  animation: screenIn 460ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(18px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* ── Stagger animations ── */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: itemIn 520ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes itemIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Pulse button (last question) ── */
+.pulse-btn {
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 0 0 rgba(59, 91, 219, 0.4);
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(59, 91, 219, 0.4); }
+  70%  { box-shadow: 0 0 0 20px rgba(59, 91, 219, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 91, 219, 0); }
+}
+
+/* ── Builder bar animation ── */
+.build-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--blue);
+  transition: width 0.1s linear;
+}
+
+/* ── Spinner ── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Stress bar ── */
+.stress-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  width: 0%;
+  transition: width 1.5s ease;
+  background: linear-gradient(90deg, #3B5BDB, #E03131);
+}
+
+/* ── Confetti pop ── */
+@keyframes pop {
+  0%   { transform: scale(0); }
+  80%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.confetti-pop {
+  animation: pop 0.5s ease;
+}
+
+/* ── Range input custom styling ── */
+input[type="range"] {
+  -webkit-appearance: none;
+  flex: 1;
+  height: 6px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    var(--blue) 0%,
+    var(--blue) var(--pct, 40%),
+    var(--gray-200) var(--pct, 40%)
+  );
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue);
+  box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--blue);
+  box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+  cursor: pointer;
+}
+
+/* ── Builder slide-in ── */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease;
 }
