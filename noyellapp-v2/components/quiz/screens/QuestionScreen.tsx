@@ -69,7 +69,7 @@ export default function QuestionScreen({ question, savedAnswer, onAnswer }: Ques
 
   return (
     <div className="screen-enter">
-      <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-500)', fontWeight: 500, marginBottom: 10, letterSpacing: '0.3px' }}>
+      <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-500)', fontWeight: 500, marginBottom: 10, marginTop: 16, letterSpacing: '0.3px' }}>
         Question {question.number} of {TOTAL}
       </div>
       <h2 style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.3, textAlign: 'center', color: 'var(--gray-900)', marginBottom: 8 }}>

@@ -24,7 +24,7 @@ export const QUESTIONS: Record<string, Question> = {
     id: 'q2',
     number: 2,
     title: 'What feels hardest in your home right now?',
-    type: 'single',
+    type: 'yesno',
     nextScreen: 'q3',
     options: [
       { value: 'tension',  label: 'Emotional tension & yelling',     emoji: '🏠' },
