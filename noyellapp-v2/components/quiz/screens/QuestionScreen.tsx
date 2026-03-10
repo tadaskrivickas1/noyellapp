@@ -23,7 +23,7 @@ export default function QuestionScreen({ question, savedAnswer, onAnswer }: Ques
     }
   }, [sliderValue, question.sliderMin, question.sliderMax]);
 
-  const TOTAL = 13;
+  const TOTAL = 14;
 
   function resolveNext(val: string): string {
     const next = question.nextScreen;

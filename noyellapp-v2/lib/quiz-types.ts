@@ -8,7 +8,7 @@ export type ScreenId =
   | 'insight3'
   | 'q10'
   | 'social'
-  | 'q11' | 'q12' | 'q13'
+  | 'q11' | 'q12' | 'q13' | 'q14'
   | 'confetti'
   | 'results'
   | 'summary'
@@ -77,8 +77,8 @@ export type QuizAction =
 export const QUIZ_SCREENS: ScreenId[] = [
   'hero', 'q1', 'q2', 'q3', 'q4', 'q5',
   'q6', 'q7', 'insight1', 'q8', 'insight2',
-  'q9', 'insight3', 'q10', 'social', 'q11',
-  'q12', 'q13',
+  'q9', 'insight3', 'q10', 'q11',
+  'q12', 'q13', 'q14',
 ];
 
 export const PLAN_DATA: Record<string, { label: string; price: string; orig: string; total: string; renewal: string; perDay: string }> = {

@@ -87,7 +87,7 @@ export const QUESTIONS: Record<string, Question> = {
     title: 'Is "screens off" one of the biggest triggers in your home?',
     type: 'yesno',
     nextScreen: 'q7',
-    whyNote: 'For many kids, screens regulate the nervous system — so stopping can feel like a sudden crash.',
+    whyNote: 'Did you know? For many kids, screens calm the nervous system — so stopping can feel like a sudden drop.',
   },
 
   q7: {
@@ -97,7 +97,7 @@ export const QUESTIONS: Record<string, Question> = {
     subtitle: 'TikTok, games, hobbies, etc.',
     type: 'yesno',
     nextScreen: 'insight1',
-    whyNote: 'This often isn\'t "not listening" — it\'s an attention "tunnel." Specific transition steps reduce conflict.',
+    whyNote: 'Did you know? This often isn\'t "not listening" — it\'s an attention "tunnel." Kids like this do better with specific transition steps that reduce conflict.',
   },
 
   q8: {
@@ -125,7 +125,7 @@ export const QUESTIONS: Record<string, Question> = {
     number: 10,
     title: 'When your child gets upset, what happens first?',
     type: 'single',
-    nextScreen: 'social',
+    nextScreen: 'q11',
     options: [
       { value: 'explode',   label: 'They explode fast (yelling, crying, throwing)', emoji: '💥' },
       { value: 'pushback',  label: 'They argue / push back ("No!", "Leave me!")',   emoji: '🛑' },
@@ -152,21 +152,27 @@ export const QUESTIONS: Record<string, Question> = {
   q12: {
     id: 'q12',
     number: 12,
-    title: 'We\'re generating recommendations for your child\'s emotional type. Which tools would help you most?',
-    type: 'multi',
+    title: 'We know parenting under stress is exhausting. If we gave you a plan broken into 5-minute micro-steps, could you commit to it daily?',
+    type: 'yesno',
     nextScreen: 'q13',
-    options: [
-      { value: 'anger',    label: 'The Anger Regulation Protocols',   emoji: '😤' },
-      { value: 'schedule', label: 'The Weekly Visual Schedule',        emoji: '📅' },
-      { value: 'homework', label: 'The Homework Organization Guide',   emoji: '📝' },
-      { value: 'diary',    label: 'The Child\'s Emotion Diary',        emoji: '📔' },
-    ],
   },
 
   q13: {
     id: 'q13',
     number: 13,
-    title: 'Last question: Are you ready to stop the yelling and bring peace to your home in the next 28 days?',
+    title: 'One rule doesn\'t fit every child — like one shoe doesn\'t fit every foot. Agree?',
+    type: 'yesno',
+    nextScreen: 'q14',
+    options: [
+      { value: 'yes', label: 'Yes, I agree', emoji: '✅' },
+      { value: 'no',  label: 'Not sure',     emoji: '🤔' },
+    ],
+  },
+
+  q14: {
+    id: 'q14',
+    number: 14,
+    title: 'Last Question: Are you ready to stop the yelling and bring peace to your home in the next 28 days?',
     subtitle: 'Press YES to start your journey',
     type: 'pulse',
     nextScreen: 'confetti',
@@ -202,8 +208,8 @@ export const INSIGHTS: Record<string, InsightData> = {
     id: 'insight3',
     iconBg: '#EEE8F8',
     iconEmoji: '🧠',
-    title: 'NoYell tools work with your child\'s brain, not against it.',
-    body: 'Our daily tools help your child regulate their nervous system through evidence-backed techniques like:',
+    title: 'Yelling doesn\'t just hurt the moment.',
+    body: 'Over time, it can wire a child\'s brain for stress, making self-control skills harder to build.\n\nOur daily tools can help your child calm their nervous system through gentle techniques like:',
     checkList: [
       'Movement breaks',
       'Simple breathing techniques',

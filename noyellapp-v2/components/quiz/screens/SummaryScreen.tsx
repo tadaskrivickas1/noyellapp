@@ -8,9 +8,9 @@ interface SummaryScreenProps {
 
 const ROWS = [
   { icon: '🎯', label: 'Main Goal',          value: 'Calm your child\'s nervous system before you ask for cooperation' },
-  { icon: '⚠️', label: 'Biggest Challenge',  value: 'Stopping escalation in the moment (before it turns into yelling)' },
+  { icon: '⚠️', label: 'Biggest Challenge',  value: 'Stopping escalation in the moment (before it turns into yelling or a meltdown)' },
   { icon: '🚩', label: 'Secondary Goal',      value: 'Build daily "no yelling" routines that reduce triggers over time' },
-  { icon: '🔍', label: 'Focus Area',          value: 'Better communication under stress (so your child can hear you)' },
+  { icon: '🔍', label: 'Focus Area',          value: 'Better communication under stress (so your child can hear you without a power struggle)' },
   { icon: '⏰', label: 'Time Commitment',     value: '5 minutes a day feels realistic' },
 ];
 
@@ -32,7 +32,7 @@ export default function SummaryScreen({ onContinue }: SummaryScreenProps) {
         Summary of Your Quiz Results
       </div>
       <p style={{ fontSize: 14, color: 'var(--gray-500)', textAlign: 'center', marginBottom: 20 }}>
-        Based on your answers, we&apos;ve mapped the key patterns affecting your child.
+        Based on your answers, we mapped your child&apos;s emotional pattern — and what helps them calm down faster (without yelling).
       </p>
 
       <div style={{ background: 'var(--white)', borderRadius: 'var(--radius)', border: '1px solid var(--gray-200)', overflow: 'hidden', marginBottom: 14, boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
@@ -69,7 +69,7 @@ export default function SummaryScreen({ onContinue }: SummaryScreenProps) {
         textAlign: 'center', fontSize: 14, color: 'white',
         fontWeight: 500, lineHeight: 1.55,
       }}>
-        This combination is typical for families with a High-Reactivity Profile — and it&apos;s exactly what your plan is designed for.
+        This combination is common for families with a High-Reactivity Profile — and it&apos;s exactly what your personalized plan is designed for.
       </div>
 
       <button

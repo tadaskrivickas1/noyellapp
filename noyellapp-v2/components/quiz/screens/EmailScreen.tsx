@@ -29,7 +29,7 @@ export default function EmailScreen({ onSubmit }: EmailScreenProps) {
         Where should we send the plan?
       </h2>
       <p style={{ fontSize: 14, color: 'var(--gray-500)', textAlign: 'center', marginBottom: 24 }}>
-        Enter your email to receive your customized NoYell support plan
+        Enter your email to receive your child&apos;s custom No-Yell Plan.
       </p>
 
       <div style={{ marginBottom: 14 }}>

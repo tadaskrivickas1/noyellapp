@@ -63,7 +63,7 @@ export default function BuilderScreen({ onContinue }: BuilderScreenProps) {
   return (
     <div className="screen-enter">
       <h2 style={{ fontSize: 24, fontWeight: 800, textAlign: 'center', color: 'var(--blue)', marginBottom: 24, lineHeight: 1.3 }}>
-        Your Child&apos;s Custom NoYell Plan is Ready!
+        Your Child&apos;s Personalized No-Yell Plan Is Ready!
       </h2>
 
       <div style={{ background: 'var(--white)', borderRadius: 16, overflow: 'hidden', marginBottom: 20, boxShadow: '0 4px 24px rgba(0,0,0,0.08)' }}>

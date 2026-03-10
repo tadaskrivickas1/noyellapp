@@ -41,6 +41,16 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
 
   return (
     <div className="screen-enter">
+      {/* Award badge */}
+      <div style={{
+        background: '#FFF8E1', border: '1px solid #FFE082',
+        borderRadius: 'var(--radius)', padding: '12px 16px',
+        marginBottom: 20, textAlign: 'center',
+        fontSize: 13, color: 'var(--gray-800)', lineHeight: 1.5,
+      }}>
+        🏆 <strong>NoYell.app</strong> has been nominated for <strong>Parenting App of the Year</strong> at the International Family Association Awards.
+      </div>
+
       {/* Sticky bar */}
       <div style={{
         position: 'sticky', top: 57, zIndex: 90,
@@ -167,7 +177,10 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
 
         <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--gray-500)', margin: '14px 0', cursor: 'pointer', lineHeight: 1.45 }}>
           <input type="checkbox" checked={termsChecked} onChange={e => { setTermsChecked(e.target.checked); setTermsError(false); }} style={{ accentColor: 'var(--blue)', flexShrink: 0, marginTop: 2 }} />
-          I agree to the T&Cs and Privacy Policy
+          I agree to the{' '}
+          <a href="https://noyellplan.com/terms-and-conditions" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--blue)' }}>T&amp;Cs</a>
+          {' '}and{' '}
+          <a href="https://noyellplan.com/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--blue)' }}>Privacy Policy</a>
         </label>
         {termsError && <p style={{ color: 'var(--red)', fontSize: 13, textAlign: 'center', marginBottom: 8 }}>Please agree to the Terms & Conditions.</p>}
 

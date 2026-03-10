@@ -17,18 +17,19 @@ export default function HeroScreen({ onSelectGender }: HeroScreenProps) {
 
   return (
     <div className="screen-enter">
-      <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--gray-600)', marginBottom: 18 }}>
-        Expert-backed child behavior insights
-      </p>
-      <h1 style={{ fontSize: 26, fontWeight: 800, lineHeight: 1.25, textAlign: 'center', color: 'var(--gray-900)', marginBottom: 8 }}>
+      <h1 style={{ fontSize: 26, fontWeight: 800, lineHeight: 1.3, textAlign: 'center', color: 'var(--gray-900)', marginBottom: 8 }}>
         Discover Your Child&apos;s{' '}
-        <span style={{ color: 'var(--blue)' }}>Emotional Type</span>{' '}
-        and the{' '}
-        <span style={{ color: 'var(--green)' }}>Strategies</span> That{' '}
-        <span style={{ color: 'var(--green)' }}>Actually Work</span> for Your Home
+        <span style={{ color: 'var(--blue)' }}>Emotional Type</span>
       </h1>
-      <p style={{ textAlign: 'center', fontSize: 14, color: 'var(--gray-600)', marginBottom: 28 }}>
-        Get an answer within 3 minutes.
+      <p style={{ textAlign: 'center', fontSize: 15, color: 'var(--gray-700)', lineHeight: 1.55, marginBottom: 6 }}>
+        Unlock the{' '}
+        <span style={{ color: 'var(--blue)', fontWeight: 600 }}>Emotion Regulation Map</span>
+      </p>
+      <p style={{ textAlign: 'center', fontSize: 14, color: 'var(--gray-600)', lineHeight: 1.55, marginBottom: 20 }}>
+        and get &ldquo;no yelling&rdquo; tools that match your child&apos;s nervous system.
+      </p>
+      <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--gray-500)', marginBottom: 28, fontStyle: 'italic' }}>
+        Get your result in 3 minutes.
       </p>
       <p style={{ textAlign: 'center', fontSize: 14, fontWeight: 600, color: 'var(--gray-800)', marginBottom: 14 }}>
         My child is a:
