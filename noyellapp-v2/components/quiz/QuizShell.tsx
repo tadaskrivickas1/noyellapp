@@ -54,51 +54,29 @@ export default function QuizShell({ currentScreen, onBack, children }: QuizShell
         </div>
       </header>
 
-      {/* Progress bar */}
+      {/* Progress row: back arrow + bar */}
       {showProgress && (
         <div style={{
           position: 'fixed',
           top: 97, left: 0, right: 0,
           zIndex: 99,
           background: 'var(--white)',
-          padding: '0 24px',
+          padding: '10px 16px',
         }}>
-          <div style={{ maxWidth: 'var(--max)', margin: '0 auto' }}>
-            <div style={{ height: 4, background: 'var(--gray-200)', borderRadius: 4, overflow: 'hidden' }}>
-              <div style={{
-                height: '100%',
-                background: 'var(--blue)',
-                borderRadius: 4,
-                width: `${progress}%`,
-                transition: 'width 0.4s ease',
-              }} />
+          <div style={{ maxWidth: 'var(--max)', margin: '0 auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button
+              onClick={onBack}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--gray-600)', padding: 0, display: 'flex', alignItems: 'center', flexShrink: 0 }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <div style={{ flex: 1, height: 6, background: 'var(--gray-200)', borderRadius: 3, overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${progress}%`, background: 'var(--blue)', borderRadius: 3, transition: 'width 0.4s ease' }} />
             </div>
           </div>
         </div>
-      )}
-
-      {/* Back button */}
-      {showProgress && (
-        <button
-          onClick={onBack}
-          style={{
-            position: 'fixed',
-            top: 105,
-            left: `max(16px, calc(50% - (var(--max) / 2)))`,
-            zIndex: 98,
-            background: 'none', border: 'none',
-            cursor: 'pointer',
-            color: 'var(--gray-600)',
-            display: 'flex', alignItems: 'center', gap: 4,
-            fontSize: 14,
-            fontFamily: 'inherit',
-            padding: '6px 4px',
-          }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
       )}
 
       {/* Main content */}

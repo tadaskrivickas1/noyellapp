@@ -125,7 +125,7 @@ export const QUESTIONS: Record<string, Question> = {
     number: 10,
     title: 'When your child gets upset, what happens first?',
     type: 'single',
-    nextScreen: 'q11',
+    nextScreen: 'social',
     options: [
       { value: 'explode',   label: 'They explode fast (yelling, crying, throwing)', emoji: '💥' },
       { value: 'pushback',  label: 'They argue / push back ("No!", "Leave me!")',   emoji: '🛑' },
