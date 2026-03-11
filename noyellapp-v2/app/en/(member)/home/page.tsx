@@ -43,15 +43,33 @@ export default async function HomePage() {
   const allLessons = lessons || [];
   const nextLesson = allLessons.find(l => !completedIds.has(l.id));
   const completedCount = completedIds.size;
+  const currentDay = completedCount + 1;
+
+  // Fetch daily tip and affirmation by current lesson day
+  const [{ data: tipData }, { data: affirmationData }] = await Promise.all([
+    supabase
+      .from('daily_tips')
+      .select('title, body')
+      .eq('day_number', currentDay)
+      .maybeSingle(),
+    supabase
+      .from('daily_affirmations')
+      .select('body')
+      .eq('day_number', currentDay)
+      .maybeSingle(),
+  ]);
 
   return (
     <HomeClient
+      email={user.email ?? ''}
       lessons={allLessons}
       completedIds={[...completedIds]}
       streak={streak}
       nextLesson={nextLesson ?? null}
       completedCount={completedCount}
       total={allLessons.length || 28}
+      tip={tipData ?? null}
+      affirmation={affirmationData ? affirmationData.body : null}
     />
   );
 }

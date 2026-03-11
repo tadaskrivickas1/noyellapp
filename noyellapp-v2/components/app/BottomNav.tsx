@@ -40,17 +40,28 @@ export default function BottomNav() {
 
   return (
     <nav style={{
-      position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 200,
-      background: '#fff', borderTop: '1px solid #f0f0f0',
-      display: 'flex', justifyContent: 'space-around', alignItems: 'center',
-      height: 64, padding: '0 8px',
+      position: 'fixed',
+      bottom: 20,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      zIndex: 200,
+      background: '#fff',
+      borderRadius: 40,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.14), 0 1px 6px rgba(0,0,0,0.08)',
+      display: 'flex',
+      alignItems: 'center',
+      height: 60,
+      padding: '0 6px',
     }}>
       {TABS.map(tab => {
         const active = pathname.startsWith(tab.href);
         return (
-          <Link key={tab.href} href={tab.href} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, textDecoration: 'none', flex: 1, padding: '8px 0' }}>
+          <Link key={tab.href} href={tab.href} style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+            textDecoration: 'none', padding: '8px 16px', borderRadius: 32,
+          }}>
             {tab.icon(active)}
-            <span style={{ fontSize: 11, fontWeight: 500, color: active ? '#3b4fd8' : '#888' }}>{tab.label}</span>
+            <span style={{ fontSize: 10, fontWeight: 600, color: active ? '#3b4fd8' : '#aaa', letterSpacing: 0.1 }}>{tab.label}</span>
           </Link>
         );
       })}

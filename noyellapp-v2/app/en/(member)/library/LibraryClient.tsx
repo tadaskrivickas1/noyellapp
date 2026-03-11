@@ -75,7 +75,7 @@ export default function LibraryClient({ lessons, situations, completedIds, bookm
       {/* Header */}
       <div style={{ padding: '24px 16px 0' }}>
         <h1 style={{ fontSize: 20, fontWeight: 700, color: '#111', marginBottom: 4 }}>
-          {tab === 'tasks' ? 'Your Tasks' : 'Situation Library'}
+          Situation Library
         </h1>
         <p style={{ fontSize: 13, color: '#888', marginBottom: 16 }}>
           {tab === 'tasks' ? 'Daily content for your parenting journey.' : 'What to do when...'}
@@ -185,8 +185,10 @@ export default function LibraryClient({ lessons, situations, completedIds, bookm
               <div key={s.id} style={{ background: '#fff', borderRadius: 12, padding: '16px', marginBottom: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: '#111', flex: 1, paddingRight: 8 }}>{s.title}</div>
-                  <button onClick={() => toggleBookmark(s.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, padding: 2, flexShrink: 0 }}>
-                    {isBookmarked ? '🔖' : '🗂️'}
+                  <button onClick={() => toggleBookmark(s.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 2, flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill={isBookmarked ? '#3b4fd8' : 'none'} stroke={isBookmarked ? '#3b4fd8' : '#aaa'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                    </svg>
                   </button>
                 </div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
