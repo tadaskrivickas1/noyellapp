@@ -5,7 +5,7 @@ import LibraryClient from './LibraryClient';
 export default async function LibraryPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+  if (!user) redirect('/en/login');
 
   const [{ data: lessons }, { data: situations }, { data: progress }, { data: bookmarks }] = await Promise.all([
     supabase.from('lessons').select('id, day_number, title, excerpt').order('day_number'),

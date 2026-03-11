@@ -21,7 +21,7 @@ export default function LoginPage() {
       setLoading(false);
     } else {
       sessionStorage.setItem('otp_email', email);
-      router.push('/verify');
+      router.push('/en/verify');
     }
   }
 
@@ -66,7 +66,7 @@ export default function LoginPage() {
 
         <p style={{ textAlign: 'center', fontSize: 13, color: '#888', marginTop: 20 }}>
           Don&apos;t have an account?{' '}
-          <a href="/onboarding" style={{ color: '#3b4fd8', fontWeight: 600, textDecoration: 'none' }}>Start</a>
+          <a href="/en/onboarding" style={{ color: '#3b4fd8', fontWeight: 600, textDecoration: 'none' }}>Start</a>
         </p>
       </div>
     </div>

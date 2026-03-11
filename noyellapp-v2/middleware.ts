@@ -1,15 +1,25 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED = ['/home', '/library', '/ai', '/settings'];
+const PROTECTED = ['/en/home', '/en/library', '/en/ai', '/en/settings'];
 
 export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
+  const path = request.nextUrl.pathname;
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    if (PROTECTED.some(p => path.startsWith(p))) {
+      return NextResponse.redirect(new URL('/en/login', request.url));
+    }
+    return NextResponse.next({ request });
+  }
+
+  try {
+    let supabaseResponse = NextResponse.next({ request });
+
+    const supabase = createServerClient(supabaseUrl, supabaseKey, {
       cookies: {
         getAll() { return request.cookies.getAll(); },
         setAll(cookiesToSet) {
@@ -20,21 +30,25 @@ export async function middleware(request: NextRequest) {
           );
         },
       },
+    });
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user && PROTECTED.some(p => path.startsWith(p))) {
+      return NextResponse.redirect(new URL('/en/login', request.url));
     }
-  );
 
-  const { data: { user } } = await supabase.auth.getUser();
-  const path = request.nextUrl.pathname;
+    if (user && (path === '/en/login' || path === '/en/verify')) {
+      return NextResponse.redirect(new URL('/en/home', request.url));
+    }
 
-  if (!user && PROTECTED.some(p => path.startsWith(p))) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return supabaseResponse;
+  } catch {
+    if (PROTECTED.some(p => path.startsWith(p))) {
+      return NextResponse.redirect(new URL('/en/login', request.url));
+    }
+    return NextResponse.next({ request });
   }
-
-  if (user && (path === '/login' || path === '/verify')) {
-    return NextResponse.redirect(new URL('/home', request.url));
-  }
-
-  return supabaseResponse;
 }
 
 export const config = {
