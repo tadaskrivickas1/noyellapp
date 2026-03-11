@@ -29,6 +29,18 @@ export default function VerifyPage() {
     if (e.key === 'Backspace' && !digits[i] && i > 0) refs[i - 1].current?.focus();
   }
 
+  function handlePaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    if (!pasted) return;
+    const next = ['', '', '', '', '', ''];
+    pasted.split('').forEach((ch, idx) => { next[idx] = ch; });
+    setDigits(next);
+    const focusIdx = Math.min(pasted.length, 5);
+    refs[focusIdx].current?.focus();
+    if (pasted.length === 6) submitCode(pasted);
+  }
+
   async function submitCode(code: string) {
     const email = sessionStorage.getItem('otp_email') || '';
     if (!email) { setError('Session expired. Please log in again.'); return; }
@@ -77,6 +89,7 @@ export default function VerifyPage() {
               value={d}
               onChange={e => handleChange(i, e.target.value)}
               onKeyDown={e => handleKeyDown(i, e)}
+              onPaste={handlePaste}
               maxLength={1}
               inputMode="numeric"
               style={{ width: 44, height: 52, textAlign: 'center', fontSize: 22, fontWeight: 700, border: '2px solid', borderColor: d ? '#3b4fd8' : '#e5e7eb', borderRadius: 10, outline: 'none', fontFamily: 'inherit' }}
