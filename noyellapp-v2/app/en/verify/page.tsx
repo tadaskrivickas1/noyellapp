@@ -7,11 +7,11 @@ import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 
 export default function VerifyPage() {
-  const [digits, setDigits] = useState(['', '', '', '', '', '', '', '']);
+  const [digits, setDigits] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [resent, setResent] = useState(false);
-  const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+  const refs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
   const router = useRouter();
 
   useEffect(() => { refs[0].current?.focus(); }, []);
@@ -21,7 +21,7 @@ export default function VerifyPage() {
     const next = [...digits];
     next[i] = val.slice(-1);
     setDigits(next);
-    if (val && i < 7) refs[i + 1].current?.focus();
+    if (val && i < 5) refs[i + 1].current?.focus();
     if (next.every(d => d)) submitCode(next.join(''));
   }
 
@@ -31,14 +31,14 @@ export default function VerifyPage() {
 
   function handlePaste(e: React.ClipboardEvent) {
     e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 8);
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
     if (!pasted) return;
-    const next = ['', '', '', '', '', '', '', ''];
+    const next = ['', '', '', '', '', ''];
     pasted.split('').forEach((ch, idx) => { next[idx] = ch; });
     setDigits(next);
-    const focusIdx = Math.min(pasted.length, 7);
+    const focusIdx = Math.min(pasted.length, 5);
     refs[focusIdx].current?.focus();
-    if (pasted.length === 8) submitCode(pasted);
+    if (pasted.length === 6) submitCode(pasted);
   }
 
   async function submitCode(code: string) {
@@ -50,7 +50,7 @@ export default function VerifyPage() {
     const { error } = await supabase.auth.verifyOtp({ email, token: code, type: 'email' });
     if (error) {
       setError('Invalid or expired code. Please try again.');
-      setDigits(['', '', '', '', '', '', '', '']);
+      setDigits(['', '', '', '', '', '']);
       refs[0].current?.focus();
       setLoading(false);
     } else {
@@ -77,7 +77,7 @@ export default function VerifyPage() {
       <div style={{ background: '#fff', borderRadius: 16, padding: '32px 28px', width: '100%', maxWidth: 400, boxShadow: '0 2px 16px rgba(0,0,0,0.08)' }}>
         <h1 style={{ fontSize: 22, fontWeight: 700, textAlign: 'center', marginBottom: 8 }}>Enter your code</h1>
         <p style={{ fontSize: 14, color: '#666', textAlign: 'center', marginBottom: 28, lineHeight: 1.5 }}>
-          We sent an 8-digit code to<br />
+          We sent a 6-digit code to<br />
           <strong>{typeof window !== 'undefined' ? (sessionStorage.getItem('otp_email') || 'your email') : 'your email'}</strong>
         </p>
 
