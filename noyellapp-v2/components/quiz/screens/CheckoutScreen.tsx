@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PLAN_DATA } from '@/lib/quiz-types';
+import { createClient } from '@/lib/supabase/client';
 
 interface CheckoutScreenProps {
   plan: '1wk' | '4wk' | '12wk';
@@ -13,10 +14,16 @@ export default function CheckoutScreen({ plan, onBack, onSuccess }: CheckoutScre
   const [loading, setLoading] = useState(false);
   const d = PLAN_DATA[plan];
 
-  function handlePay() {
+  async function handlePay() {
     setLoading(true);
-    // Demo mode — simulate payment success
-    setTimeout(() => onSuccess(), 2200);
+    // Demo mode — simulate payment processing delay
+    await new Promise(r => setTimeout(r, 2200));
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      await supabase.from('profiles').upsert({ id: user.id, has_access: true, plan_type: plan });
+    }
+    onSuccess();
   }
 
   return (
