@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useRef, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -64,7 +66,7 @@ export default function VerifyPage() {
         <h1 style={{ fontSize: 22, fontWeight: 700, textAlign: 'center', marginBottom: 8 }}>Enter your code</h1>
         <p style={{ fontSize: 14, color: '#666', textAlign: 'center', marginBottom: 28, lineHeight: 1.5 }}>
           We sent a 6-digit code to<br />
-          <strong>{sessionStorage.getItem?.('otp_email') || 'your email'}</strong>
+          <strong>{typeof window !== 'undefined' ? (sessionStorage.getItem('otp_email') || 'your email') : 'your email'}</strong>
         </p>
 
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 20 }}>
