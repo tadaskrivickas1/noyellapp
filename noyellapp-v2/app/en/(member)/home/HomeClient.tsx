@@ -23,7 +23,7 @@ const QUICK_LINKS = [
   { href: '/en/tools', label: 'Tools', bg: '#e8f0fd', color: '#3b4fd8' },
   { href: '/en/library', label: 'Library', bg: '#e8f0fd', color: '#3b4fd8' },
   { href: '/en/ai', label: 'AI Help', bg: '#d4f5ea', color: '#1a7a4a' },
-  { href: '/en/situations', label: 'Situations', bg: '#fef3cc', color: '#7a5c00' },
+  { href: '/en/library', label: 'Situations', bg: '#fef3cc', color: '#7a5c00' },
 ];
 
 export default function HomeClient({ email, lessons, completedIds, streak, nextLesson, completedCount, total, tip, affirmation }: Props) {
