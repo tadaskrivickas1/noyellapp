@@ -43,11 +43,11 @@ export default function TaskModal({ lessonId, isCompleted, onClose, onMarkDone }
   return (
     <div
       onClick={onClose}
-      style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 300, display: 'flex', alignItems: 'flex-end' }}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 16px' }}
     >
       <div
         onClick={e => e.stopPropagation()}
-        style={{ background: '#fff', borderRadius: '20px 20px 0 0', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column', maxWidth: 480, margin: '0 auto' }}
+        style={{ background: '#fff', borderRadius: 20, width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column', maxWidth: 480 }}
       >
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '16px 16px 0' }}>
