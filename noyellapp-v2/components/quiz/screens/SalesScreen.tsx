@@ -56,7 +56,7 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
         position: 'sticky', top: 57, zIndex: 90,
         background: 'var(--white)', borderBottom: '1px solid var(--gray-200)',
         padding: '8px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        margin: '0 -24px 24px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+        marginBottom: 24, borderRadius: 'var(--radius)', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
       }}>
         <div>
           <div style={{ fontSize: 11, color: 'var(--gray-500)' }}>Discount expires in</div>
