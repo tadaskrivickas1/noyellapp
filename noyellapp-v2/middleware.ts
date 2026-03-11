@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED = ['/home', '/library', '/ai', '/settings'];
+const PROTECTED = ['/en/home', '/en/library', '/en/ai', '/en/settings'];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
 
   if (!supabaseUrl || !supabaseKey) {
     if (PROTECTED.some(p => path.startsWith(p))) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/en/login', request.url));
     }
     return NextResponse.next({ request });
   }
@@ -35,17 +35,17 @@ export async function middleware(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user && PROTECTED.some(p => path.startsWith(p))) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/en/login', request.url));
     }
 
-    if (user && (path === '/login' || path === '/verify')) {
-      return NextResponse.redirect(new URL('/home', request.url));
+    if (user && (path === '/en/login' || path === '/en/verify')) {
+      return NextResponse.redirect(new URL('/en/home', request.url));
     }
 
     return supabaseResponse;
   } catch {
     if (PROTECTED.some(p => path.startsWith(p))) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/en/login', request.url));
     }
     return NextResponse.next({ request });
   }

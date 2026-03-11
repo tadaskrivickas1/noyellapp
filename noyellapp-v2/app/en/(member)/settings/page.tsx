@@ -36,7 +36,7 @@ export default function SettingsPage() {
   async function signOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push('/en/login');
   }
 
   const LEGAL = [

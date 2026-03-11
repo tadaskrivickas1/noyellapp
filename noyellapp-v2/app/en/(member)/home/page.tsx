@@ -5,7 +5,7 @@ import HomeClient from './HomeClient';
 export default async function HomePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect('/login');
+  if (!user) redirect('/en/login');
 
   // Fetch all lessons
   const { data: lessons } = await supabase

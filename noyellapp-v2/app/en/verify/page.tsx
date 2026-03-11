@@ -42,7 +42,7 @@ export default function VerifyPage() {
       refs[0].current?.focus();
       setLoading(false);
     } else {
-      router.push('/home');
+      router.push('/en/home');
     }
   }
 
@@ -96,7 +96,7 @@ export default function VerifyPage() {
           </button>
         </p>
         <p style={{ textAlign: 'center', fontSize: 13, marginTop: 8 }}>
-          <a href="/login" style={{ color: '#888', textDecoration: 'none' }}>← Back to login</a>
+          <a href="/en/login" style={{ color: '#888', textDecoration: 'none' }}>← Back to login</a>
         </p>
       </div>
     </div>
