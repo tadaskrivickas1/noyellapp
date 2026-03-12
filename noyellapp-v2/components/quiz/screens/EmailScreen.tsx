@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
 interface EmailScreenProps {
   onSubmit: (email: string, nextScreen: string) => void;
@@ -11,12 +12,15 @@ export default function EmailScreen({ onSubmit }: EmailScreenProps) {
   const [consent, setConsent] = useState(true);
   const [error, setError] = useState(false);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!email || !email.includes('@')) {
       setError(true);
       return;
     }
     setError(false);
+    // Save email early so login check passes even before plan selection
+    const supabase = createClient();
+    await supabase.from('pending_access').upsert({ email: email.toLowerCase() });
     onSubmit(email, 'sales');
   }
 
