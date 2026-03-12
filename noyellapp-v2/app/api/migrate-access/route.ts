@@ -12,13 +12,18 @@ export async function POST(request: Request) {
 
   const { data: pending } = await supabase
     .from('pending_access')
-    .select('plan_type')
+    .select('plan_type, stripe_customer_id, stripe_subscription_id')
     .eq('email', email.toLowerCase())
     .single();
 
   if (pending) {
     await supabase.from('profiles').upsert({
-      id: user_id, has_access: true, plan_type: pending.plan_type, email,
+      id: user_id,
+      has_access: true,
+      plan_type: pending.plan_type,
+      email,
+      ...(pending.stripe_customer_id ? { stripe_customer_id: pending.stripe_customer_id } : {}),
+      ...(pending.stripe_subscription_id ? { stripe_subscription_id: pending.stripe_subscription_id } : {}),
     });
     await supabase.from('pending_access').delete().eq('email', email.toLowerCase());
   }

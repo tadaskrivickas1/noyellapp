@@ -16,15 +16,14 @@ export default function CheckoutScreen({ plan, email, onBack, onSuccess }: Check
 
   async function handlePay() {
     setLoading(true);
-    // Demo mode — simulate payment processing delay
-    await new Promise(r => setTimeout(r, 2200));
-    // User is not authenticated yet — store in pending_access via server route
-    await fetch('/api/capture-email', {
+    const res = await fetch('/api/checkout/create-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, plan_type: plan }),
     });
-    onSuccess();
+    const { url, error } = await res.json();
+    if (error || !url) { setLoading(false); return; }
+    window.location.href = url;
   }
 
   return (
@@ -64,53 +63,24 @@ export default function CheckoutScreen({ plan, email, onBack, onSuccess }: Check
         Pay securely. Your subscription will be activated immediately after payment.
       </p>
 
-      {/* Card form (demo placeholders) */}
-      <div style={{ border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', padding: 18, marginBottom: 16 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--gray-900)' }}>Payment card</span>
-          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-            {['VISA', 'MC', 'AMEX'].map(b => (
-              <span key={b} style={{ fontSize: 10, fontWeight: 700, color: 'var(--gray-500)', border: '1px solid var(--gray-200)', borderRadius: 4, padding: '2px 5px' }}>{b}</span>
-            ))}
-          </div>
-        </div>
-
-        {/* Demo card fields */}
-        {[
-          { placeholder: '4242 4242 4242 4242', label: 'Card number' },
-        ].map(field => (
-          <div key={field.label} style={{ border: '1.5px solid var(--gray-300)', borderRadius: 8, padding: '13px 14px', background: 'var(--white)', marginBottom: 12, minHeight: 46 }}>
-            <span style={{ fontSize: 14, color: 'var(--gray-400)' }}>{field.placeholder}</span>
-          </div>
-        ))}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
-          {['MM / YY', 'CVC'].map(ph => (
-            <div key={ph} style={{ border: '1.5px solid var(--gray-300)', borderRadius: 8, padding: '13px 14px', background: 'var(--white)', minHeight: 46 }}>
-              <span style={{ fontSize: 14, color: 'var(--gray-400)' }}>{ph}</span>
-            </div>
-          ))}
-        </div>
-
-        <button
-          onClick={handlePay}
-          disabled={loading}
-          style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            width: '100%', background: 'var(--blue)', color: 'white',
-            border: 'none', borderRadius: 'var(--radius)', padding: 16,
-            fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer',
-            fontFamily: 'inherit', opacity: loading ? 0.8 : 1,
-          }}
-        >
-          {loading ? (
-            <><span className="spinner" /> Processing…</>
-          ) : (
-            <>🔒 Pay {d.total}</>
-          )}
-        </button>
-        <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--green)', fontWeight: 500, marginTop: 8 }}>✓ Secure payment</p>
-        <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-400)', marginTop: 8 }}>🔒 All transactions are secure and encrypted</p>
-      </div>
+      <button
+        onClick={handlePay}
+        disabled={loading}
+        style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+          width: '100%', background: 'var(--blue)', color: 'white',
+          border: 'none', borderRadius: 'var(--radius)', padding: 16,
+          fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer',
+          fontFamily: 'inherit', opacity: loading ? 0.8 : 1, marginBottom: 12,
+        }}
+      >
+        {loading ? (
+          <><span className="spinner" /> Redirecting to payment…</>
+        ) : (
+          <>🔒 Pay {d.total}</>
+        )}
+      </button>
+      <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-400)' }}>🔒 Secure payment powered by Stripe</p>
     </div>
   );
 }
