@@ -43,9 +43,9 @@ export async function middleware(request: NextRequest) {
     }
 
     if (user && PROTECTED.some(p => path.startsWith(p))) {
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('profiles').select('has_access').eq('id', user.id).single();
-      if (!profile?.has_access) {
+      if (profileError || !profile?.has_access) {
         return NextResponse.redirect(new URL('/en/no-access', request.url));
       }
     }

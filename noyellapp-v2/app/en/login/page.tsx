@@ -15,6 +15,15 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
     const supabase = createClient();
+
+    // Check access before sending OTP
+    const { data: hasAccess } = await supabase.rpc('check_email_has_access', { user_email: email });
+    if (!hasAccess) {
+      setError('No active plan found for this email. Please purchase a plan first.');
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
       setError(error.message);
@@ -54,7 +63,11 @@ export default function LoginPage() {
               style={{ width: '100%', padding: '12px 12px 12px 40px', border: '1.5px solid #e5e7eb', borderRadius: 10, fontSize: 15, fontFamily: 'inherit', outline: 'none', boxSizing: 'border-box' }}
             />
           </div>
-          {error && <p style={{ color: '#e53e3e', fontSize: 13, marginBottom: 12 }}>{error}</p>}
+          {error && (
+            <div style={{ background: '#fff0f0', border: '1px solid #fed7d7', borderRadius: 8, padding: '10px 12px', marginBottom: 12 }}>
+              <p style={{ color: '#c53030', fontSize: 13, margin: 0, lineHeight: 1.5 }}>{error}</p>
+            </div>
+          )}
           <button
             type="submit"
             disabled={loading}

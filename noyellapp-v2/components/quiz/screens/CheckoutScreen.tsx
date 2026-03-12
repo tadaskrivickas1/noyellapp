@@ -21,7 +21,7 @@ export default function CheckoutScreen({ plan, onBack, onSuccess }: CheckoutScre
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      await supabase.from('profiles').upsert({ id: user.id, has_access: true, plan_type: plan });
+      await supabase.from('profiles').upsert({ id: user.id, has_access: true, plan_type: plan, email: user.email });
     }
     onSuccess();
   }
