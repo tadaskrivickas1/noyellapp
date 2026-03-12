@@ -85,9 +85,11 @@ export default function AIPage() {
   const isEmpty = messages.length === 0;
 
   const AlmaAvatar = ({ size = 32 }: { size?: number }) => (
-    <div style={{ width: size, height: size, borderRadius: '50%', background: 'linear-gradient(135deg, #7c6fe0 0%, #3b4fd8 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(59,79,216,0.3)' }}>
-      <span style={{ fontSize: size * 0.5, lineHeight: 1 }}>🌸</span>
-    </div>
+    <img
+      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
+      alt="Alma"
+      style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}
+    />
   );
 
   return (
