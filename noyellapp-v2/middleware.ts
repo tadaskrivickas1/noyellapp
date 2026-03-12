@@ -42,6 +42,14 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/en/home', request.url));
     }
 
+    if (user && PROTECTED.some(p => path.startsWith(p))) {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles').select('has_access').eq('id', user.id).single();
+      if (profileError || !profile?.has_access) {
+        return NextResponse.redirect(new URL('/en/no-access', request.url));
+      }
+    }
+
     return supabaseResponse;
   } catch {
     if (PROTECTED.some(p => path.startsWith(p))) {
