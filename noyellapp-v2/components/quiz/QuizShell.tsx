@@ -12,29 +12,32 @@ export default function QuizShell({ currentScreen, onBack, children }: QuizShell
   const idx = QUIZ_SCREENS.indexOf(currentScreen);
   const showProgress = idx > 0;
   const progress = showProgress ? (idx / (QUIZ_SCREENS.length - 1)) * 100 : 0;
+  const isSales = currentScreen === 'sales';
 
   return (
     <>
-      {/* Rating banner */}
-      <div style={{
-        background: '#22A34A',
-        color: 'white',
-        textAlign: 'center',
-        padding: '10px 16px',
-        fontSize: 14,
-        fontWeight: 500,
-        position: 'fixed',
-        top: 0, left: 0, right: 0,
-        zIndex: 200,
-      }}>
-        <span style={{ color: '#FFD700', marginRight: 4 }}>★★★★★</span>
-        4.8/5 &nbsp;·&nbsp; Trusted by 150K+ parents
-      </div>
+      {/* Rating banner — hidden on sales/pricing page */}
+      {!isSales && (
+        <div style={{
+          background: '#22A34A',
+          color: 'white',
+          textAlign: 'center',
+          padding: '10px 16px',
+          fontSize: 14,
+          fontWeight: 500,
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 200,
+        }}>
+          <span style={{ color: '#FFD700', marginRight: 4 }}>★★★★★</span>
+          4.8/5 &nbsp;·&nbsp; Trusted by 150K+ parents
+        </div>
+      )}
 
       {/* Header */}
       <header style={{
         position: 'fixed',
-        top: 38, left: 0, right: 0,
+        top: isSales ? 0 : 38, left: 0, right: 0,
         zIndex: 100,
         background: 'var(--white)',
         borderBottom: '1px solid var(--gray-200)',
@@ -58,7 +61,7 @@ export default function QuizShell({ currentScreen, onBack, children }: QuizShell
       {showProgress && (
         <div style={{
           position: 'fixed',
-          top: 97, left: 0, right: 0,
+          top: isSales ? 57 : 97, left: 0, right: 0,
           zIndex: 99,
           background: 'var(--white)',
           padding: '10px 16px',
@@ -83,7 +86,7 @@ export default function QuizShell({ currentScreen, onBack, children }: QuizShell
       <main style={{
         maxWidth: 'var(--max)',
         margin: '0 auto',
-        padding: '130px 24px 80px',
+        padding: isSales ? '90px 24px 80px' : '130px 24px 80px',
         minHeight: '100vh',
         position: 'relative',
       }}>
