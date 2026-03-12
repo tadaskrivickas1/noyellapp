@@ -236,7 +236,7 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
         {[
           {
             badge: 'NOW', badgeColor: 'var(--red)',
-            img: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=300&h=200&fit=crop',
+            img: 'https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/before_yell.jpg',
             stats: [
               { label: 'Anger level', val: 'High', bad: true, w: 82 },
               { label: 'Confidence', val: 'Insecure', bad: true, w: 22 },
@@ -245,7 +245,7 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
           },
           {
             badge: 'GOAL', badgeColor: 'var(--green)',
-            img: 'https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?w=300&h=200&fit=crop',
+            img: 'https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/after_yell.jpg',
             stats: [
               { label: 'Anger level', val: 'Low', bad: false, w: 15 },
               { label: 'Confidence', val: 'Self-Assured', bad: false, w: 88 },
@@ -254,7 +254,7 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
           },
         ].map(col => (
           <div key={col.badge} style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
-            <img src={col.img} alt={col.badge} style={{ width: '100%', height: 110, objectFit: 'cover', display: 'block' }} />
+            <img src={col.img} alt={col.badge} style={{ width: '100%', height: 120, objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
             <div style={{ padding: '10px 10px 12px' }}>
               <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: col.badgeColor, marginBottom: 10 }}>{col.badge}</div>
               {col.stats.map(st => (
