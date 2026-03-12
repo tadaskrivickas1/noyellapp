@@ -20,7 +20,8 @@ export default function EmailScreen({ onSubmit }: EmailScreenProps) {
     setError(false);
     // Save email early so login check passes even before plan selection
     const supabase = createClient();
-    await supabase.from('pending_access').upsert({ email: email.toLowerCase() });
+    const { error: upsertError } = await supabase.from('pending_access').upsert({ email: email.toLowerCase() });
+    if (upsertError) console.error('pending_access upsert error:', upsertError);
     onSubmit(email, 'sales');
   }
 
