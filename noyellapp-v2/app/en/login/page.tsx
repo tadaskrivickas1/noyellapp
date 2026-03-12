@@ -19,7 +19,7 @@ export default function LoginPage() {
     // Check access before sending OTP
     const { data: hasAccess } = await supabase.rpc('check_email_has_access', { user_email: email });
     if (!hasAccess) {
-      setError('No active plan found for this email. Please purchase a plan first.');
+      setError('no_plan');
       setLoading(false);
       return;
     }
@@ -65,7 +65,13 @@ export default function LoginPage() {
           </div>
           {error && (
             <div style={{ background: '#fff0f0', border: '1px solid #fed7d7', borderRadius: 8, padding: '10px 12px', marginBottom: 12 }}>
-              <p style={{ color: '#c53030', fontSize: 13, margin: 0, lineHeight: 1.5 }}>{error}</p>
+              <p style={{ color: '#c53030', fontSize: 13, margin: 0, lineHeight: 1.5 }}>
+                {error === 'no_plan' ? (
+                  <>No active plan found for this email. Click{' '}
+                    <a href="/en/onboarding" style={{ color: '#c53030', fontWeight: 700 }}>Start</a>
+                    {' '}to sign up.</>
+                ) : error}
+              </p>
             </div>
           )}
           <button
