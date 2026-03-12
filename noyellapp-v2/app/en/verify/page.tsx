@@ -54,6 +54,21 @@ export default function VerifyPage() {
       refs[0].current?.focus();
       setLoading(false);
     } else {
+      // Migrate pending_access → profiles now that we have an authenticated user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.email) {
+        const { data: pending } = await supabase
+          .from('pending_access')
+          .select('plan_type')
+          .eq('email', user.email.toLowerCase())
+          .single();
+        if (pending) {
+          await supabase.from('profiles').upsert({
+            id: user.id, has_access: true, plan_type: pending.plan_type, email: user.email,
+          });
+          await supabase.from('pending_access').delete().eq('email', user.email.toLowerCase());
+        }
+      }
       router.push('/en/home');
     }
   }

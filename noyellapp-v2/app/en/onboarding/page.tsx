@@ -159,6 +159,7 @@ export default function OnboardingPage() {
       {screen === 'checkout' && (
         <CheckoutScreen
           plan={state.plan}
+          email={state.email}
           onBack={() => goTo('sales')}
           onSuccess={() => goTo('success')}
         />
