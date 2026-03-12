@@ -81,7 +81,7 @@ function PriceDisplay({ perDay }: { perDay: string }) {
 function MoneyBackCard() {
   return (
     <div style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', padding: 20, marginBottom: 16, textAlign: 'center' }}>
-      <img src="https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/moneyback.png" alt="100% Money Back" style={{ width: 100, height: 100, objectFit: 'contain', marginBottom: 10 }} />
+      <img src="https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/moneyback.png" alt="100% Money Back" style={{ width: 100, height: 100, objectFit: 'contain', display: 'block', margin: '0 auto 10px' }} />
       <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--gray-900)', marginBottom: 10 }}>100% Money-Back Guarantee</div>
       <p style={{ fontSize: 13.5, color: 'var(--gray-600)', lineHeight: 1.6, marginBottom: 10 }}>
         We believe our 4-week plan can show you real, visible results within 4 weeks. If you don&apos;t see progress, we&apos;ll give you a full refund within 14 days of purchase — no questions asked.
