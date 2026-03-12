@@ -105,7 +105,7 @@ export default function HeroScreen({ onSelectGender }: HeroScreenProps) {
       {/* Log in link */}
       <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--gray-500)' }}>
         Already have an account?{' '}
-        <a href="#" style={{ color: 'var(--blue)', fontWeight: 500, textDecoration: 'none' }}>Log in</a>
+        <a href="https://www.noyellplan.com/en/login" style={{ color: 'var(--blue)', fontWeight: 500, textDecoration: 'none' }}>Log in</a>
       </p>
     </div>
   );
