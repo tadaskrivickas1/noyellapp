@@ -81,7 +81,7 @@ function PriceDisplay({ perDay }: { perDay: string }) {
 function MoneyBackCard() {
   return (
     <div style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', padding: 20, marginBottom: 16, textAlign: 'center' }}>
-      <div style={{ fontSize: 64, lineHeight: 1, marginBottom: 10 }}>🏅</div>
+      <img src="https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/moneyback.png" alt="100% Money Back" style={{ width: 100, height: 100, objectFit: 'contain', marginBottom: 10 }} />
       <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--gray-900)', marginBottom: 10 }}>100% Money-Back Guarantee</div>
       <p style={{ fontSize: 13.5, color: 'var(--gray-600)', lineHeight: 1.6, marginBottom: 10 }}>
         We believe our 4-week plan can show you real, visible results within 4 weeks. If you don&apos;t see progress, we&apos;ll give you a full refund within 14 days of purchase — no questions asked.
@@ -256,11 +256,11 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
           <div key={col.badge} style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
             <img src={col.img} alt={col.badge} style={{ width: '100%', height: 120, objectFit: 'cover', objectPosition: 'center', display: 'block' }} />
             <div style={{ padding: '10px 10px 12px' }}>
-              <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: col.badgeColor, marginBottom: 10 }}>{col.badge}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: col.badgeColor, marginBottom: 10 }}>{col.badge}</div>
               {col.stats.map(st => (
                 <div key={st.label} style={{ marginBottom: 8 }}>
-                  <div style={{ fontSize: 10, color: 'var(--gray-500)', marginBottom: 1 }}>{st.label}</div>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: st.bad ? 'var(--red)' : 'var(--green)', marginBottom: 3 }}>{st.val}</div>
+                  <div style={{ fontSize: 13, color: 'var(--gray-700)', marginBottom: 2 }}>{st.label}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: st.bad ? 'var(--red)' : 'var(--green)', marginBottom: 3 }}>{st.val}</div>
                   <div style={{ height: 3, background: 'var(--gray-200)', borderRadius: 3, overflow: 'hidden' }}>
                     <div style={{ height: '100%', width: st.w + '%', background: st.bad ? 'var(--red)' : 'var(--green)', borderRadius: 3 }} />
                   </div>
@@ -301,19 +301,13 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
       <MoneyBackCard />
 
       {/* ── Press mentions ── */}
-      <div style={{ background: '#2C3E50', borderRadius: 'var(--radius)', padding: 20, marginBottom: 12, textAlign: 'center' }}>
+      <div style={{ background: '#2C3E50', borderRadius: 'var(--radius)', padding: '20px 16px', marginBottom: 12, textAlign: 'center' }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.9)', marginBottom: 14 }}>Featured in media</div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          {[
-            { label: 'common sense', style: { fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 500 } as React.CSSProperties },
-            { label: 'CNN', style: { fontSize: 15, color: 'rgba(255,255,255,0.9)', fontWeight: 800, letterSpacing: '1px' } as React.CSSProperties },
-            { label: '★ Trustpilot', style: { fontSize: 12, color: '#00B67A', fontWeight: 700 } as React.CSSProperties },
-            { label: 'Aptoide', style: { fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 600 } as React.CSSProperties },
-            { label: 'techeazi.com', style: { fontSize: 11, color: 'rgba(255,255,255,0.6)', fontWeight: 400 } as React.CSSProperties },
-          ].map(({ label, style }) => (
-            <span key={label} style={style}>{label}</span>
-          ))}
-        </div>
+        <img
+          src="https://fxrriqbkdtxttxykczqp.supabase.co/storage/v1/object/public/tools-illustrations/featured-in.png"
+          alt="Featured in media logos"
+          style={{ width: '100%', maxWidth: 360, objectFit: 'contain', display: 'block', margin: '0 auto' }}
+        />
       </div>
 
       {/* ── Award nomination ── */}
