@@ -84,13 +84,23 @@ export default function AIPage() {
 
   const isEmpty = messages.length === 0;
 
+  const AlmaAvatar = ({ size = 32 }: { size?: number }) => (
+    <div style={{ width: size, height: size, borderRadius: '50%', background: 'linear-gradient(135deg, #7c6fe0 0%, #3b4fd8 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(59,79,216,0.3)' }}>
+      <span style={{ fontSize: size * 0.5, lineHeight: 1 }}>🌸</span>
+    </div>
+  );
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', maxHeight: '100vh', background: '#f8f9fa' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', height: '100vh', background: '#f8f9fa' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: 700, height: '100vh', maxHeight: '100vh' }}>
       {/* Header */}
-      <div style={{ background: '#fff', borderBottom: '1px solid #f0f0f0', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
-        <div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#111' }}>Behavior Specialist</div>
-          <div style={{ fontSize: 12, color: '#3b4fd8' }}>Ask Nova anything about child behavior</div>
+      <div style={{ background: '#fff', borderBottom: '1px solid #f0f0f0', padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <AlmaAvatar size={40} />
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#111' }}>Alma</div>
+            <div style={{ fontSize: 12, color: '#3b4fd8' }}>Ask Alma anything about child behavior</div>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={loadHistory} style={{ background: 'none', border: '1px solid #e5e7eb', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', fontSize: 16, color: '#666' }}>🕐</button>
@@ -123,8 +133,8 @@ export default function AIPage() {
       <div style={{ flex: 1, overflowY: 'auto', padding: '20px 16px' }}>
         {isEmpty ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: 300 }}>
-            <div style={{ width: 80, height: 80, background: '#3b4fd8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, marginBottom: 16 }}>🕊️</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: '#111', marginBottom: 4 }}>Hi! I&apos;m Nova 👋</div>
+            <AlmaAvatar size={80} />
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#111', marginBottom: 4, marginTop: 16 }}>Hi! I&apos;m Alma 👋</div>
             <div style={{ fontSize: 14, color: '#3b4fd8', marginBottom: 4 }}>Emotion regulation specialist</div>
             <div style={{ fontSize: 13, color: '#888', marginBottom: 20 }}>Your daily guide for no-yell parenting</div>
             <div style={{ fontSize: 13, color: '#666', marginBottom: 12 }}>Try asking about:</div>
@@ -141,7 +151,7 @@ export default function AIPage() {
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start', marginBottom: 12 }}>
                 {m.role === 'assistant' && (
-                  <div style={{ width: 32, height: 32, background: '#3b4fd8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0, marginRight: 8, alignSelf: 'flex-end' }}>🕊️</div>
+                  <div style={{ marginRight: 8, alignSelf: 'flex-end' }}><AlmaAvatar size={32} /></div>
                 )}
                 <div style={{
                   maxWidth: '75%', padding: '12px 16px', borderRadius: m.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
@@ -178,6 +188,7 @@ export default function AIPage() {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }
