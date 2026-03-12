@@ -49,13 +49,19 @@ export async function POST(request: Request) {
       // Set up subscription schedule: intro price phase → regular price phase
       const regularPrice = REGULAR_PRICES[plan_type];
       if (regularPrice && subscriptionId) {
-        await stripe.subscriptionSchedules.create({
+        // Step 1: create schedule from existing subscription
+        const schedule = await stripe.subscriptionSchedules.create({
           from_subscription: subscriptionId,
+        });
+        // Step 2: update schedule to add regular-price phase after first period
+        const currentPhase = schedule.phases[0];
+        await stripe.subscriptionSchedules.update(schedule.id, {
           end_behavior: 'release',
           phases: [
             {
-              items: [{ price: (await stripe.subscriptions.retrieve(subscriptionId)).items.data[0].price.id, quantity: 1 }],
-              iterations: 1,
+              start_date: currentPhase.start_date,
+              end_date: currentPhase.end_date,
+              items: currentPhase.items.map(item => ({ price: (item.price as Stripe.Price).id, quantity: item.quantity ?? 1 })),
             },
             {
               items: [{ price: regularPrice, quantity: 1 }],
