@@ -16,14 +16,14 @@ export default function CheckoutScreen({ plan, email, onBack, onSuccess }: Check
 
   async function handlePay() {
     setLoading(true);
-    const res = await fetch('/api/checkout/create-session', {
+    // Demo mode — simulate payment processing delay
+    await new Promise(r => setTimeout(r, 2200));
+    await fetch('/api/capture-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, plan_type: plan }),
     });
-    const { url, error } = await res.json();
-    if (error || !url) { setLoading(false); return; }
-    window.location.href = url;
+    onSuccess();
   }
 
   return (
@@ -75,12 +75,13 @@ export default function CheckoutScreen({ plan, email, onBack, onSuccess }: Check
         }}
       >
         {loading ? (
-          <><span className="spinner" /> Redirecting to payment…</>
+          <><span className="spinner" /> Processing…</>
         ) : (
           <>🔒 Pay {d.total}</>
         )}
       </button>
-      <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-400)' }}>🔒 Secure payment powered by Stripe</p>
+      <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--green)', fontWeight: 500, marginTop: 8 }}>✓ Secure payment</p>
+      <p style={{ textAlign: 'center', fontSize: 12, color: 'var(--gray-400)', marginTop: 8 }}>🔒 All transactions are secure and encrypted</p>
     </div>
   );
 }
