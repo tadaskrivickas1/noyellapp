@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { PLAN_DATA } from '@/lib/quiz-types';
-import { createClient } from '@/lib/supabase/client';
 
 interface CheckoutScreenProps {
   plan: '1wk' | '4wk' | '12wk';
@@ -19,9 +18,12 @@ export default function CheckoutScreen({ plan, email, onBack, onSuccess }: Check
     setLoading(true);
     // Demo mode — simulate payment processing delay
     await new Promise(r => setTimeout(r, 2200));
-    // User is not authenticated yet during quiz — store in pending_access
-    const supabase = createClient();
-    await supabase.from('pending_access').upsert({ email: email.toLowerCase(), plan_type: plan });
+    // User is not authenticated yet — store in pending_access via server route
+    await fetch('/api/capture-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, plan_type: plan }),
+    });
     onSuccess();
   }
 

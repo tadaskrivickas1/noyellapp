@@ -54,20 +54,14 @@ export default function VerifyPage() {
       refs[0].current?.focus();
       setLoading(false);
     } else {
-      // Migrate pending_access → profiles now that we have an authenticated user
+      // Migrate pending_access → profiles via server route (uses service role key)
       const { data: { user } } = await supabase.auth.getUser();
       if (user?.email) {
-        const { data: pending } = await supabase
-          .from('pending_access')
-          .select('plan_type')
-          .eq('email', user.email.toLowerCase())
-          .single();
-        if (pending) {
-          await supabase.from('profiles').upsert({
-            id: user.id, has_access: true, plan_type: pending.plan_type, email: user.email,
-          });
-          await supabase.from('pending_access').delete().eq('email', user.email.toLowerCase());
-        }
+        await fetch('/api/migrate-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: user.email, user_id: user.id }),
+        });
       }
       router.push('/en/home');
     }

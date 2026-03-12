@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 
 interface EmailScreenProps {
   onSubmit: (email: string, nextScreen: string) => void;
@@ -19,8 +18,11 @@ export default function EmailScreen({ onSubmit }: EmailScreenProps) {
     }
     setError(false);
     // Save email early so login check passes even before plan selection
-    const supabase = createClient();
-    await supabase.from('pending_access').upsert({ email: email.toLowerCase() });
+    await fetch('/api/capture-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
     onSubmit(email, 'sales');
   }
 
