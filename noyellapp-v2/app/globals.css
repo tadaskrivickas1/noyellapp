@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --blue: #3B5BDB;
-  --blue-dark: #2F4AC7;
+  --blue: #4361EE;
+  --blue-dark: #3451D1;
   --blue-light: #EEF2FF;
-  --green: #2F9E44;
-  --green-light: #EBFBEE;
+  --green: #14B8A6;
+  --green-light: #CCFBF1;
   --red: #E03131;
   --gray-50: #F8F9FA;
   --gray-100: #F1F3F5;
@@ -61,13 +61,13 @@ body {
 /* ── Pulse button (last question) ── */
 .pulse-btn {
   animation: pulse 2s infinite;
-  box-shadow: 0 0 0 0 rgba(59, 91, 219, 0.4);
+  box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
 }
 
 @keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(59, 91, 219, 0.4); }
-  70%  { box-shadow: 0 0 0 20px rgba(59, 91, 219, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(59, 91, 219, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
+  70%  { box-shadow: 0 0 0 20px rgba(67, 97, 238, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
 }
 
 /* ── Builder bar animation ── */
@@ -99,7 +99,7 @@ body {
   border-radius: 8px;
   width: 0%;
   transition: width 1.5s ease;
-  background: linear-gradient(90deg, #3B5BDB, #E03131);
+  background: linear-gradient(90deg, #4361EE, #E03131);
 }
 
 /* ── Confetti pop ── */
@@ -136,7 +136,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--white);
   border: 3px solid var(--blue);
-  box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.25);
   cursor: pointer;
 }
 
@@ -146,7 +146,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   background: var(--white);
   border: 3px solid var(--blue);
-  box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+  box-shadow: 0 2px 8px rgba(67, 97, 238, 0.25);
   cursor: pointer;
 }
 
