@@ -26,7 +26,7 @@ export default function SuccessScreen() {
         ))}
       </div>
       <a
-        href="https://noyell.app"
+        href="https://www.noyellplan.com/en/login"
         style={{
           display: 'block', width: '100%',
           background: 'var(--blue)', color: 'white',
@@ -35,7 +35,7 @@ export default function SuccessScreen() {
           textDecoration: 'none', textAlign: 'center',
         }}
       >
-        Go to NoYell.app →
+        Go to NoYell App
       </a>
     </div>
   );
