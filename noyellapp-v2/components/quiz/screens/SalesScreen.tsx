@@ -262,10 +262,15 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
           Order now →
         </button>
 
-        {/* Legal */}
-        <p style={{ fontSize: 11, color: 'var(--gray-400)', lineHeight: 1.5, marginTop: 10, textAlign: 'center' }}>
-          By clicking ORDER NOW, you agree to pay for your selected plan. If you don&apos;t cancel before the end of the introductory period, your subscription will automatically renew at the regular price. To cancel, contact hello@noyellplan.com.
-        </p>
+        {/* Legal — dynamic per selected plan */}
+        {(() => {
+          const p = PLANS.find(p => p.key === plan)!;
+          return (
+            <p style={{ fontSize: 11, color: 'var(--gray-400)', lineHeight: 1.5, marginTop: 10, textAlign: 'center' }}>
+              By clicking ORDER NOW, you agree to pay <strong>{p.price}</strong> for your plan. If you don&apos;t cancel before the end of the introductory period, your subscription will automatically renew at <strong>{p.orig}</strong> each billing cycle, until cancelled. To cancel, contact hello@noyellplan.com.
+            </p>
+          );
+        })()}
 
         {/* Payment logos */}
         <div style={{ marginTop: 14, textAlign: 'center' }}>
