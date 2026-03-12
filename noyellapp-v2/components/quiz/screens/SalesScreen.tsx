@@ -67,20 +67,15 @@ function StarRow({ stars }: { stars: number }) {
 }
 
 function VideoCarousel({ onVideoClick }: { onVideoClick: (url: string) => void }) {
-  const [loaded, setLoaded] = useState<Set<number>>(new Set());
   return (
     <div style={{ display: 'flex', gap: 10, overflowX: 'auto', scrollSnapType: 'x mandatory', paddingBottom: 4 }}>
       {VIDEO_URLS.map((url, i) => (
         <div
           key={i}
-          onMouseEnter={() => setLoaded(prev => new Set([...prev, i]))}
-          onTouchStart={() => setLoaded(prev => new Set([...prev, i]))}
           onClick={() => onVideoClick(url)}
           style={{ position: 'relative', cursor: 'pointer', borderRadius: 12, overflow: 'hidden', aspectRatio: '9/16', background: '#111', flexShrink: 0, width: 'calc(50% - 5px)', scrollSnapAlign: 'start' }}
         >
-          {loaded.has(i) && (
-            <video src={url} preload="metadata" muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          )}
+          <video src={url} preload="metadata" muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.18)' }}>
             <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
               <span style={{ fontSize: 18, marginLeft: 3 }}>▶</span>
