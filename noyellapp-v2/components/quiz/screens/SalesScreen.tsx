@@ -61,8 +61,35 @@ function StarRow({ stars }: { stars: number }) {
   return (
     <span style={{ color: '#F59F00', fontSize: 14, letterSpacing: 1 }}>
       {'★'.repeat(full)}
-      <span style={{ color: 'var(--gray-300)' }}>{'★'.repeat(empty)}</span>
+      <span style={{ color: 'rgba(245, 159, 0, 0.4)' }}>{'★'.repeat(empty)}</span>
     </span>
+  );
+}
+
+function VideoCarousel({ onVideoClick }: { onVideoClick: (url: string) => void }) {
+  const [loaded, setLoaded] = useState<Set<number>>(new Set());
+  return (
+    <div style={{ display: 'flex', gap: 10, overflowX: 'auto', scrollSnapType: 'x mandatory', paddingBottom: 4 }}>
+      {VIDEO_URLS.map((url, i) => (
+        <div
+          key={i}
+          onMouseEnter={() => setLoaded(prev => new Set([...prev, i]))}
+          onTouchStart={() => setLoaded(prev => new Set([...prev, i]))}
+          onClick={() => onVideoClick(url)}
+          style={{ position: 'relative', cursor: 'pointer', borderRadius: 12, overflow: 'hidden', aspectRatio: '9/16', background: '#111', flexShrink: 0, width: 'calc(50% - 5px)', scrollSnapAlign: 'start' }}
+        >
+          {loaded.has(i) && (
+            <video src={url} preload="metadata" muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          )}
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.18)' }}>
+            <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
+              <span style={{ fontSize: 18, marginLeft: 3 }}>▶</span>
+            </div>
+          </div>
+          <div style={{ position: 'absolute', bottom: 8, left: 8, color: '#F59F00', fontSize: 11, letterSpacing: 0.5 }}>★★★★<span style={{ color: 'rgba(245,159,0,0.4)' }}>★</span></div>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -351,7 +378,7 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
       {/* ── Star ratings ── */}
       <div style={{ background: 'var(--white)', border: '1px solid var(--gray-200)', borderRadius: 'var(--radius)', padding: '20px 20px 16px', marginBottom: 16, textAlign: 'center' }}>
         <div style={{ fontSize: 32, fontWeight: 800, color: 'var(--gray-900)', lineHeight: 1 }}>4.8 stars</div>
-        <div style={{ color: '#F59F00', fontSize: 22, letterSpacing: 2, margin: '8px 0 4px' }}>★★★★★</div>
+        <div style={{ color: '#F59F00', fontSize: 22, letterSpacing: 2, margin: '8px 0 4px' }}>★★★★<span style={{ color: 'rgba(245,159,0,0.4)' }}>★</span></div>
         <div style={{ fontSize: 13, color: 'var(--gray-500)', marginBottom: 16 }}>Based on 7,391 reviews</div>
         <div style={{ borderTop: '1px solid var(--gray-100)', paddingTop: 14 }}>
           {STAR_RATINGS.map(r => (
@@ -366,28 +393,12 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
         </div>
       </div>
 
-      {/* ── Video testimonials (first 2 only) ── */}
+      {/* ── Video testimonials carousel ── */}
       <div style={{ marginBottom: 16 }}>
         <h3 style={{ fontSize: 18, fontWeight: 700, textAlign: 'center', color: 'var(--gray-900)', marginBottom: 14 }}>
           Thousands of happy parents
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          {VIDEO_URLS.slice(0, 2).map((url, i) => (
-            <div
-              key={i}
-              onClick={() => setActiveVideo(url)}
-              style={{ position: 'relative', cursor: 'pointer', borderRadius: 12, overflow: 'hidden', aspectRatio: '9/16', background: '#111' }}
-            >
-              <video src={url} preload="metadata" muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.18)' }}>
-                <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
-                  <span style={{ fontSize: 18, marginLeft: 3 }}>▶</span>
-                </div>
-              </div>
-              <div style={{ position: 'absolute', bottom: 8, left: 8, color: '#F59F00', fontSize: 11, letterSpacing: 0.5 }}>★★★★★</div>
-            </div>
-          ))}
-        </div>
+        <VideoCarousel onVideoClick={setActiveVideo} />
       </div>
 
       {/* ── Text testimonials ── */}
