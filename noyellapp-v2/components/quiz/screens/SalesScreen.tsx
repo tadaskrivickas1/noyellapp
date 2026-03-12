@@ -274,11 +274,19 @@ export default function SalesScreen({ plan, onSelectPlan, onOrder }: SalesScreen
 
         {/* Payment logos */}
         <div style={{ marginTop: 14, textAlign: 'center' }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--gray-400)', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: 8 }}>Guaranteed Secure Payment</div>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            {['G Pay', 'VISA', 'MC', 'AMEX'].map(logo => (
-              <span key={logo} style={{ fontSize: 12, fontWeight: 700, color: 'var(--gray-600)', border: '1.5px solid var(--gray-300)', borderRadius: 6, padding: '3px 8px', letterSpacing: '0.3px' }}>{logo}</span>
-            ))}
+          <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--gray-400)', letterSpacing: '0.8px', textTransform: 'uppercase', marginBottom: 10 }}>Guaranteed Secure Payment</div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            {/* Stripe */}
+            <span style={{ fontSize: 15, fontWeight: 700, color: '#635BFF', letterSpacing: '-0.5px', fontFamily: 'sans-serif' }}>stripe</span>
+            {/* Visa */}
+            <span style={{ fontSize: 13, fontWeight: 900, color: '#1A1F71', letterSpacing: '1px', fontStyle: 'italic' }}>VISA</span>
+            {/* Mastercard */}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+              <span style={{ display: 'inline-block', width: 18, height: 18, borderRadius: '50%', background: '#EB001B' }} />
+              <span style={{ display: 'inline-block', width: 18, height: 18, borderRadius: '50%', background: '#F79E1B', marginLeft: -8, opacity: 0.9 }} />
+            </span>
+            {/* American Express */}
+            <span style={{ fontSize: 11, fontWeight: 800, color: 'white', background: '#2E77BC', borderRadius: 4, padding: '3px 7px', letterSpacing: '0.3px' }}>AMEX</span>
           </div>
         </div>
       </div>
